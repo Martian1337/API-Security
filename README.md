@@ -11,7 +11,7 @@ The code also includes additional tests for sending requests with an invalid acc
 
 # RestTest.go #
 
-This code defines a function called httpRequest() that performs an HTTP request to the specified URL with the specified method and data. The function takes three arguments: the method (as a string), the URL (as a string), and the data to send with the request (as a string). The function returns two values: the response from the server (as a string) and any error that occurred (as an error object).
+This golang script defines a function called httpRequest() that performs an HTTP request to the specified URL with the specified method and data. The function takes three arguments: the method (as a string), the URL (as a string), and the data to send with the request (as a string). The function returns two values: the response from the server (as a string) and any error that occurred (as an error object).
 
 The httpRequest() function first creates a new HTTP request with the specified method, URL, and data. If the data argument is empty, the request body is set to nil, otherwise it is set to the data argument as a strings.Reader object. The function then sets the content type of the request to "application/x-www-form-urlencoded" and makes the request using the default HTTP client.
 

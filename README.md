@@ -3,11 +3,11 @@ Repo for various API testing scripts with descriptions and User prompts for inpu
 
 # RestTest.py # 
 
-The python script imports the requests module, which allows you to send HTTP requests from your Python code. It defines a list of HTTP methods (GET, POST, PUT, DELETE) and prompts the user to enter the URL of an API endpoint. It then defines the headers that will be sent with each request and a payload that will be sent with POST and PUT requests.
+This script sends HTTP requests to an API using the requests module. The user is prompted to enter the URL of the API endpoint, and the code sends a request using each of the HTTP methods in the methods list (GET, POST, PUT, and DELETE).
 
-The code then iterates over each method in the list and sends a request to the specified URL using the requests module. It prints the response text for each request.
+For each request, it sets the Content-Type header to application/json and sends an Authorization header with a bearer token. The code also defines a payload that is sent with POST and PUT requests.
 
-The code also includes additional tests for sending requests with an invalid access token, without an access token, and with a tampered payload. These tests can help you verify that your API is properly handling these scenarios.
+The script also includes several tests for handling error cases. It tests sending a request with invalid credentials, without credentials, with an invalid access token, and without an access token. It also tests sending a request with a tampered payload. If an error occurs, the code prints the error message. If the request is successful, it prints the response text.
 
 # RestTest.go #
 

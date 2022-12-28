@@ -40,7 +40,19 @@ for method in methods:
         # Print the error message if the request failed
         print(method + ':', e)
 
-# Test sending a request with an invalid access token
+# Test sending a request with an invalid username and password
+try:
+    response = requests.get(url, auth=('invalid_username', 'invalid_password'), headers=headers)
+    print('GET with invalid credentials:', response.text)
+except requests.exceptions.RequestException as e:
+    print('GET with invalid credentials:', e)
+
+# Test sending a request without a username and password
+try:
+    response = requests.get(url, headers=headers)
+    print('GET without credentials:', response.text)
+except requests.exceptions.RequestException as e:
+    print('GET without credentials:', e)# Test sending a request with an invalid access token
 try:
     headers_invalid_token = headers.copy()
     headers_invalid_token['Authorization'] = 'Bearer <INVALID_ACCESS_TOKEN>'
@@ -66,3 +78,5 @@ try:
     print('POST with tampered payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with tampered payload:', e)
+
+

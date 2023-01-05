@@ -6,6 +6,9 @@ methods = ['GET', 'POST', 'PUT', 'DELETE']
 # Prompt the user for the URL of the API endpoint
 url = input('Enter the URL of the API endpoint (or type "list" to test a list of URLs from a text file): ')
 
+# Prompt the user for the value of the Authorization header
+auth_header = input('Enter the value for the Authorization header: ')
+
 # Define the headers that will be sent with each request
 headers = {
     'Content-Type': 'application/json',

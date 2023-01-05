@@ -23,13 +23,18 @@ payload = {
 }
 
 # Prompt the user for which HTTP method(s) to test
-print('Enter the number of the HTTP method(s) to test:')
+print('Enter the number(s) of the HTTP method(s) to test:')
 print('1: GET')
 print('2: POST')
 print('3: PUT')
 print('4: DELETE')
 print('5: Test all methods')
+print('Enter multiple numbers separated by spaces (e.g. "1 3 4" for GET, PUT, and DELETE)')
 selected_methods = input('Selection: ')
+
+# Parse the user's selection and create a list of the selected HTTP methods
+selected_methods = selected_methods.split()
+selected_methods = [methods[int(x) - 1] for x in selected_methods]
 
 # Parse the user's selection and create a list of the selected HTTP methods
 if selected_methods == '1':

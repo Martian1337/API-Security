@@ -36,20 +36,6 @@ selected_methods = input('Selection: ')
 selected_methods = selected_methods.split()
 selected_methods = [methods[int(x) - 1] for x in selected_methods]
 
-# Parse the user's selection and create a list of the selected HTTP methods
-if selected_methods == '1':
-    selected_methods = ['GET']
-elif selected_methods == '2':
-    selected_methods = ['POST']
-elif selected_methods == '3':
-    selected_methods = ['PUT']
-elif selected_methods == '4':
-    selected_methods = ['DELETE']
-elif selected_methods == '5':
-    selected_methods = methods
-else:
-    raise ValueError('Invalid selection')
-
 # Test a single URL if the user entered one
 # Iterate over each method and send a request to the API
 if url != 'list':

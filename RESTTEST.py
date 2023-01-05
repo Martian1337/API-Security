@@ -6,6 +6,9 @@ methods = ['GET', 'POST', 'PUT', 'DELETE']
 # Prompt the user for the URL of the API endpoint
 url = input('Enter the URL of the API endpoint (or type "list" to test a list of URLs from a text file): ')
 
+# Prompt the user for the value of the Authorization header
+auth_header = input('Enter the value for the Authorization header: ')
+
 # Define the headers that will be sent with each request
 headers = {
     'Content-Type': 'application/json',
@@ -19,10 +22,24 @@ payload = {
     'key2': 'value2',
 }
 
+# Prompt the user for which HTTP method(s) to test
+print('Enter the number(s) of the HTTP method(s) to test:')
+print('1: GET')
+print('2: POST')
+print('3: PUT')
+print('4: DELETE')
+print('5: Test all methods')
+print('Enter multiple numbers separated by spaces (e.g. "1 3 4" for GET, PUT, and DELETE)')
+selected_methods = input('Selection: ')
+
+# Parse the user's selection and create a list of the selected HTTP methods
+selected_methods = selected_methods.split()
+selected_methods = [methods[int(x) - 1] for x in selected_methods]
+
 # Test a single URL if the user entered one
 # Iterate over each method and send a request to the API
 if url != 'list':
-    for method in methods:
+    for method in selected_methods:
         try:
             # Send request with specified method
             if method == 'GET':
@@ -49,11 +66,11 @@ else:
 
     # Iterate over each URL and test each HTTP method
     for url in urls:
-        for method in methods:
+        for method in selected_methods:
             try:
                 # Send request with specified method
                 if method == 'GET':
-                    response = requests.get(url, headers=headers)
+                    response = requests.get(url, headers=header)
                 elif method == 'POST':
                     response = requests.post(url, json=payload, headers=headers)
                 elif method == 'PUT':
@@ -68,7 +85,6 @@ else:
             except requests.exceptions.RequestException as e:
                 # Print the error message if the request failed
                 print(method + ':', e)
-
 
 # GET testing
 
@@ -227,4 +243,4 @@ try:
     response = requests.put('http://invalid.url', json=payload, headers=headers)
     print('PUT with invalid URL:', response.text)
 except requests.exceptions.RequestException as e:
-    print('PUT with invalid URL:', e)
+    print('PUT with invalid URL:', e)                  

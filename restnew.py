@@ -254,3 +254,55 @@ try:
     print('PUT with invalid URL:', response.text)
 except requests.exceptions.RequestException as e:
     print('PUT with invalid URL:', e)
+
+
+# DELETE Testing
+
+# Test sending a request with a tampered payload
+try:
+    payload_tampered = payload.copy()
+    payload_tampered['key1'] = 'tampered value'
+    response = requests.delete(url, json=payload_tampered, headers=headers, proxies=proxies, verify=False)
+    print('DELETE with tampered payload:', response.text)
+except requests.exceptions.RequestException as e:
+    print('DELETE with tampered payload:', e)
+
+# Test sending a request with an invalid access token
+try:
+    headers_invalid_token = headers.copy()
+    headers_invalid_token['Authorization'] = 'Bearer <INVALID_ACCESS_TOKEN>'
+    response = requests.delete(url, json=payload, headers=headers_invalid_token, proxies=proxies, verify=False)
+    print('DELETE with invalid token:', response.text)
+except requests.exceptions.RequestException as e:
+    print('DELETE with invalid token:', e)
+   
+# Test sending a request with a missing access token
+try:
+    headers_missing_token = headers.copy()
+    del headers_missing_token['Authorization']
+    response = requests.delete(url, json=payload, headers=headers_missing_token, proxies=proxies, verify=False)
+    print('DELETE with missing token:', response.text)
+except requests.exceptions.RequestException as e:
+    print('DELETE with missing token:', e)
+    
+# Test sending a request with an expired access token
+try:
+    headers_expired_token = headers.copy()
+    headers_expired_token['Authorization'] = 'Bearer <EXPIRED_ACCESS_TOKEN>'
+    response = requests.delete(url, json=payload, headers=headers_expired_token, proxies=proxies, verify=False)
+    print('DELETE with expired token:', response.text)
+except requests.exceptions.RequestException as e:
+    print('DELETE with expired token:', e)
+
+# Test sending a request with an invalid SSL certificate
+   try:
+    response = requests.delete(url, json=payload, headers=headers, proxies=proxies, verify=True)
+    print('DELETE with invalid SSL certificate:', response.text)
+except requests.exceptions.RequestException as e:
+    print('DELETE with invalid SSL certificate:', e)
+
+
+
+
+
+

@@ -52,13 +52,13 @@ if url != 'list':
         try:
             # Send request with specified method
             if method == 'GET':
-                response = requests.get(url, headers=headers, proxies=proxies)
+                response = requests.get(url, headers=headers, proxies=proxies, verify=False)
             elif method == 'POST':
-                response = requests.post(url, json=payload, headers=headers, proxies=proxies)
+                response = requests.post(url, json=payload, headers=headers, proxies=proxies, verify=False)
             elif method == 'PUT':
-                response = requests.put(url, json=payload, headers=headers, proxies=proxies)
+                response = requests.put(url, json=payload, headers=headers, proxies=proxies, verify=False)
             elif method == 'DELETE':
-                response = requests.delete(url, headers=headers, proxies=proxies)
+                response = requests.delete(url, headers=headers, proxies=proxies, verify=False)
             else:
                 raise ValueError('Invalid HTTP method')
 
@@ -80,13 +80,13 @@ else:
             try:
                 # Send request with specified method
                 if method == 'GET':
-                    response = requests.get(url, headers=header, proxies=proxies)
+                    response = requests.get(url, headers=header, proxies=proxies, verify=False)
                 elif method == 'POST':
-                    response = requests.post(url, json=payload, headers=headers, proxies=proxies)
+                    response = requests.post(url, json=payload, headers=headers, proxies=proxies, verify=False)
                 elif method == 'PUT':
-                    response = requests.put(url, json=payload, headers=headers, proxies=proxies)
+                    response = requests.put(url, json=payload, headers=headers, proxies=proxies, verify=False)
                 elif method == 'DELETE':
-                    response = requests.delete(url, headers=headers, proxies=proxies)
+                    response = requests.delete(url, headers=headers, proxies=proxies, verify=False)
                 else:
                     raise ValueError('Invalid HTTP method')
 
@@ -100,14 +100,14 @@ else:
 
 # Test sending a request with an invalid username and password
 try:
-    response = requests.get(url, auth=('invalid_username', 'invalid_password'), headers=headers, proxies=proxies)
+    response = requests.get(url, auth=('invalid_username', 'invalid_password'), headers=headers, proxies=proxies, verify=False)
     print('GET with invalid credentials:', response.text)
 except requests.exceptions.RequestException as e:
     print('GET with invalid credentials:', e)
 
 # Test sending a request without a username and password
 try:
-    response = requests.get(url, headers=headers, proxies=proxies)
+    response = requests.get(url, headers=headers, proxies=proxies, verify=False)
     print('GET without credentials:', response.text)
 except requests.exceptions.RequestException as e:
     print('GET without credentials:', e)
@@ -116,7 +116,7 @@ except requests.exceptions.RequestException as e:
 try:
     headers_invalid_token = headers.copy()
     headers_invalid_token['Authorization'] = 'Bearer <INVALID_ACCESS_TOKEN>'
-    response = requests.get(url, headers=headers_invalid_token, proxies=proxies)
+    response = requests.get(url, headers=headers_invalid_token, proxies=proxies, verify=False)
     print('GET with invalid token:', response.text)
 except requests.exceptions.RequestException as e:
     print('GET with invalid token:', e)
@@ -125,7 +125,7 @@ except requests.exceptions.RequestException as e:
 try:
     headers_no_token = headers.copy()
     headers_no_token.pop('Authorization', None)
-    response = requests.get(url, headers=headers_no_token, proxies=proxies)
+    response = requests.get(url, headers=headers_no_token, proxies=proxies, verify=False)
     print('GET without token:', response.text)
 except requests.exceptions.RequestException as e:
     print('GET without token:', e)
@@ -138,7 +138,7 @@ except requests.exceptions.RequestException as e:
 try:
     payload_tampered = payload.copy()
     payload_tampered['key1'] = 'tampered value'
-    response = requests.post(url, json=payload_tampered, headers=headers, proxies=proxies)
+    response = requests.post(url, json=payload_tampered, headers=headers, proxies=proxies, verify=False)
     print('POST with tampered payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with tampered payload:', e)
@@ -147,7 +147,7 @@ except requests.exceptions.RequestException as e:
 try:
     headers_invalid_token = headers.copy()
     headers_invalid_token['Authorization'] = 'Bearer <INVALID_ACCESS_TOKEN>'
-    response = requests.post(url, json=payload, headers=headers_invalid_token, proxies=proxies)
+    response = requests.post(url, json=payload, headers=headers_invalid_token, proxies=proxies, verify=False)
     print('POST with invalid token:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with invalid token:', e)
@@ -156,7 +156,7 @@ except requests.exceptions.RequestException as e:
 try:
     headers_no_token = headers.copy()
     headers_no_token.pop('Authorization', None)
-    response = requests.post(url, json=payload, headers=headers_no_token, proxies=proxies)
+    response = requests.post(url, json=payload, headers=headers_no_token, proxies=proxies, verify=False)
     print('POST without token:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST without token:', e)
@@ -164,7 +164,7 @@ except requests.exceptions.RequestException as e:
 # Test sending a request with an invalid payload
 try:
     payload_invalid = {'invalid_key': 'invalid_value'}
-    response = requests.post(url, json=payload_invalid, headers=headers, proxies=proxies)
+    response = requests.post(url, json=payload_invalid, headers=headers, proxies=proxies, verify=False)
     print('POST with invalid payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with invalid payload:', e)
@@ -172,14 +172,14 @@ except requests.exceptions.RequestException as e:
 # Test sending a request with a missing required field in the payload
 try:
     payload_missing_field = {'key1': 'value1'}
-    response = requests.post(url, json=payload_missing_field, headers=headers, proxies=proxies)
+    response = requests.post(url, json=payload_missing_field, headers=headers, proxies=proxies, verify=False)
     print('POST with missing field in payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with missing field in payload:', e)
 
 # Test sending a request with an invalid URL
 try:
-    response = requests.post('http://invalid.url', json=payload, headers=headers, proxies=proxies)
+    response = requests.post('http://invalid.url', json=payload, headers=headers, proxies=proxies, verify=False)
     print('POST with invalid URL:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with invalid URL:', e)
@@ -187,7 +187,7 @@ except requests.exceptions.RequestException as e:
 # Test sending a request with a XSS payload in key value
 try:
     payload_malicious = {'key1': '<SCRIPT>alert("XSS")</SCRIPT>'}
-    response = requests.post(url, json=payload_malicious, headers=headers, proxies=proxies)
+    response = requests.post(url, json=payload_malicious, headers=headers, proxies=proxies, verify=False)
     print('POST with malicious payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with malicious payload:', e)
@@ -196,7 +196,7 @@ except requests.exceptions.RequestException as e:
 try:
     payload_padded = payload.copy()
     payload_padded['key1'] = payload_padded['key1'] + 'a' * 100
-    response = requests.post(url, json=payload_padded, headers=headers, proxies=proxies)
+    response = requests.post(url, json=payload_padded, headers=headers, proxies=proxies, verify=False)
     print('POST with padded payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with padded payload:', e)
@@ -205,7 +205,7 @@ except requests.exceptions.RequestException as e:
 try:
     payload_truncated = payload.copy()
     payload_truncated['key1'] = payload_truncated['key1'][:5]
-    response = requests.post(url, json=payload_truncated, headers=headers, proxies=proxies)
+    response = requests.post(url, json=payload_truncated, headers=headers, proxies=proxies, verify=False)
     print('POST with truncated payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('POST with truncated payload:', e)
@@ -218,7 +218,7 @@ except requests.exceptions.RequestException as e:
 try:
     headers_invalid_token = headers.copy()
     headers_invalid_token['Authorization'] = 'Bearer <INVALID_ACCESS_TOKEN>'
-    response = requests.put(url, json=payload, headers=headers_invalid_token, proxies=proxies)
+    response = requests.put(url, json=payload, headers=headers_invalid_token, proxies=proxies, verify=False)
     print('PUT with invalid token:', response.text)
 except requests.exceptions.RequestException as e:
     print('PUT with invalid token:', e)
@@ -227,7 +227,7 @@ except requests.exceptions.RequestException as e:
 try:
     headers_no_token = headers.copy()
     headers_no_token.pop('Authorization', None)
-    response = requests.put(url, json=payload, headers=headers_no_token, proxies=proxies)
+    response = requests.put(url, json=payload, headers=headers_no_token, proxies=proxies, verify=False)
     print('PUT without token:', response.text)
 except requests.exceptions.RequestException as e:
     print('PUT without token:', e)
@@ -235,7 +235,7 @@ except requests.exceptions.RequestException as e:
 # Test sending a request with an invalid payload
 try:
     payload_invalid = {'invalid_key': 'invalid_value'}
-    response = requests.put(url, json=payload_invalid, headers=headers, proxies=proxies)
+    response = requests.put(url, json=payload_invalid, headers=headers, proxies=proxies, verify=False)
     print('PUT with invalid payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('PUT with invalid payload:', e)
@@ -243,14 +243,14 @@ except requests.exceptions.RequestException as e:
 #Test sending a request with a missing required field in the payload
 try:
     payload_missing_field = {'key1': 'value1'}
-    response = requests.put(url, json=payload_missing_field, headers=headers, proxies=proxies)
+    response = requests.put(url, json=payload_missing_field, headers=headers, proxies=proxies, verify=False)
     print('PUT with missing field in payload:', response.text)
 except requests.exceptions.RequestException as e:
     print('PUT with missing field in payload:', e)
 
 # Test sending a request with an invalid URL
 try:
-    response = requests.put('http://invalid.url', json=payload, headers=headers, proxies=proxies)
+    response = requests.put('http://invalid.url', json=payload, headers=headers, proxies=proxies, verify=False)
     print('PUT with invalid URL:', response.text)
 except requests.exceptions.RequestException as e:
     print('PUT with invalid URL:', e)

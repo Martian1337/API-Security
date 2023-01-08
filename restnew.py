@@ -300,9 +300,3 @@ except requests.exceptions.RequestException as e:
     print('DELETE with invalid SSL certificate:', response.text)
 except requests.exceptions.RequestException as e:
     print('DELETE with invalid SSL certificate:', e)
-
-
-
-
-
-
